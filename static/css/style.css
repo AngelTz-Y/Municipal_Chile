@@ -1,0 +1,423 @@
+/* styles.min.css */
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+/* Imagen flotante */
+#floating-image {
+    transition: all 0.5s ease-in-out;
+    position: relative;
+}
+
+#floating-image.hidden {
+    opacity: 0;
+    transform: translateY(-100%);
+    pointer-events: none;
+}
+
+/* Nueva sección con la imagen */
+.main-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    flex-wrap: wrap;
+}
+
+.main-section img {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    opacity: 0; /* Oculto por defecto */
+    transform: translateY(50px); /* Desplazamiento inicial */
+    transition: all 0.5s ease-in-out;
+}
+
+.main-section img.show {
+    opacity: 1; /* Hace visible */
+    transform: translateY(0); /* Mueve a su posición original */
+}
+
+.info-card {
+    flex: 1;
+    padding: 20px;
+    background: linear-gradient(135deg, #ff00aa, #9900ff);
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.info-card h3 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.info-card p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .main-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .main-section img {
+        max-width: 70%;
+        margin-bottom: 20px;
+    }
+}
+
+/* Servicios */
+.service-card {
+    background: white;
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px; /* Separación entre tarjetas */
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.service-card img {
+    max-width: 60%;
+    margin: 0 auto;
+}
+
+.service-card h5 {
+    margin-top: 15px;
+    color: #333;
+}
+
+.service-card p {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+
+
+/* Variables de Color y Animaciones */
+:root {
+    --primary-color: #cc0033;
+    --secondary-color: #1a1f36;
+    --gradient-colors: linear-gradient(135deg, #0033cc, #cc0033, #0033cc);
+    --btn-hover-scale: 1.05;
+    --btn-active-scale: 1;
+}
+
+/* Estilos Generales del Cuerpo */
+body {
+    background: #f2f5f9;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Navbar */
+.navbar {
+    background: var(--gradient-colors);
+    background-size: 200% 200%;
+    animation: gradientAnimation 5s ease infinite;
+    padding: 0.5rem 1rem;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0 0 10px 10px;
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand img {
+    height: 35px;
+    margin-right: 8px;
+}
+
+.navbar-brand:hover {
+    transform: scale(var(--btn-hover-scale));
+}
+
+/* Sidebar */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: var(--secondary-color);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 20px;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 15px;
+}
+
+.sidebar a {
+    padding: 10px 0;
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #ddd;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #fff;
+    transform: scale(var(--btn-hover-scale));
+}
+
+.sidebar-close {
+    align-self: flex-start;
+    font-size: 1.5rem;
+    color: #ddd;
+    padding: 0 15px;
+    cursor: pointer;
+}
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: var(--gradient-colors);
+    color: #fff;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    background-size: 200% 200%;
+    animation: gradientAnimation 5s ease infinite;
+    margin-top: 0;
+}
+
+.typing-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#animated-title {
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+
+}
+
+#animated-subtitle {
+    opacity: 0;
+    font-size: 1rem;
+    margin-top: 20px;
+    animation: zoomIn 1.5s forwards;
+    animation-delay: 2s;
+}
+
+@keyframes zoomIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Estilos para el GIF en el Header */
+.header img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+    border-radius: 10px; /* Opcional: agrega bordes redondeados */
+}
+
+/* Sección de Características */
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2rem 0;
+    padding: 0 1rem;
+    perspective: 1000px;
+}
+
+.feature-card {
+    background: #fff;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 1.2rem;
+    max-width: 280px;
+    text-align: center;
+    transition: transform 0.5s ease, box-shadow 0.3s ease, filter 0.3s ease;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px) rotateY(5deg) rotateX(5deg) scale(var(--btn-hover-scale));
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    filter: brightness(1.1);
+}
+
+.feature-card:active {
+    transform: translateY(-8px) rotateY(2deg) rotateX(2deg) scale(var(--btn-active-scale));
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+}
+
+.feature-card img {
+    width: 60px;
+    margin-bottom: 1rem;
+    /* Eliminado 'loading: lazy;' ya que no es una propiedad válida en CSS */
+}
+
+.feature-card h5 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--secondary-color);
+    color: #ddd;
+    padding: 0.8rem 0;
+    text-align: center;
+    font-size: 0.85rem;
+    box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* Botones con Animación 3D */
+.btn-3d, .btn-inicio {
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-style: preserve-3d;
+}
+
+.btn-3d::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    transform: translateZ(-1px) scale(1.05);
+    transition: transform 0.3s ease;
+    pointer-events: none;
+}
+
+.btn-3d:hover {
+    transform: rotateX(10deg) rotateY(10deg) scale(var(--btn-hover-scale));
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-3d:active {
+    transform: rotateX(0deg) rotateY(0deg) scale(var(--btn-active-scale));
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .typing-container {
+        font-size: 1.5rem;
+    }
+    #animated-title {
+        font-size: 1.5rem;
+    }
+    #animated-subtitle {
+        font-size: 0.9rem;
+        margin-top: 15px;
+    }
+    .feature-card {
+        max-width: 220px;
+        padding: 1rem;
+    }
+    .feature-card img {
+        width: 50px;
+    }
+    .navbar-brand {
+        font-size: 1rem;
+    }
+    .header {
+        padding: 1.5rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .typing-container {
+        font-size: 1.2rem;
+    }
+    #animated-title {
+        font-size: 1.2rem;
+    }
+    #animated-subtitle {
+        font-size: 0.8rem;
+        margin-top: 10px;
+    }
+    .feature-card {
+        max-width: 180px;
+        padding: 0.8rem;
+    }
+    .feature-card img {
+        width: 40px;
+    }
+    .navbar-brand {
+        font-size: 0.9rem;
+    }
+    .header {
+        padding: 1rem 1rem;
+    }
+    
+
+}
+

@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Solicitudes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #1f1c47, #3b328b);
+            color: white;
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+        }
+        .navbar {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            padding: 10px 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .container {
+            margin-top: 30px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            color: #343a40;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #343a40;
+            font-weight: bold;
+        }
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+        .table td {
+            vertical-align: middle;
+            text-align: center;
+        }
+        .badge {
+            font-size: 0.9rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .btn-detalles {
+            background-color: #5bc0de;
+            color: white;
+        }
+        .btn-detalles:hover {
+            background-color: #31b0d5;
+        }
+        .btn-estado {
+            background-color: #f0ad4e;
+            color: white;
+        }
+        .btn-estado:hover {
+            background-color: #ec971f;
+        }
+        .btn-eliminar {
+            background-color: #d9534f;
+            color: white;
+        }
+        .btn-eliminar:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'admin_dashboard' %}">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" height="40">
+                    Municipalidad Chile
+                </a>
+                <div class="ms-auto">
+                    <a href="{% url 'admin_dashboard' %}" class="btn btn-outline-light">Volver al Panel</a>
+                    <a href="{% url 'logout' %}" class="btn btn-outline-light">Cerrar Sesión</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main>
+        <div class="container">
+            <h2>Gestión de Solicitudes</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Solicitante</th>
+                            <th>Fecha de Solicitud</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for solicitud in solicitudes %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ solicitud.nombre }} {{ solicitud.apellidos }}</td>
+                            <td>{{ solicitud.fecha_solicitud|date:"d/m/Y H:i" }}</td>
+                            <td>
+                                <span class="badge 
+                                    {% if solicitud.estado == 'pendiente' %}bg-warning
+                                    {% elif solicitud.estado == 'aceptada' %}bg-success
+                                    {% elif solicitud.estado == 'rechazada' %}bg-danger
+                                    {% elif solicitud.estado == 'expirada' %}bg-secondary{% endif %}">
+                                    {{ solicitud.get_estado_display }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{% url 'detalles_solicitud' solicitud.id %}" class="btn btn-sm btn-detalles">
+                                        <i class="bi bi-eye"></i> Detalles
+                                    </a>
+                                    <a href="{% url 'cambiar_estado_solicitud' solicitud.id %}" class="btn btn-sm btn-estado">
+                                        <i class="bi bi-arrow-repeat"></i> Cambiar Estado
+                                    </a>
+                                    <form action="{% url 'eliminar_solicitud' solicitud.id %}" method="POST" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm btn-eliminar" onclick="return confirm('¿Estás seguro de eliminar esta solicitud?')">
+                                            <i class="bi bi-trash"></i> Eliminar
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

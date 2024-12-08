@@ -1,0 +1,22 @@
+CREATE DATABASE MuniChile_bd;
+use MuniChile_bd;
+
+
+DROP DATABASE MuniChile_bd;
+
+select * from auth_user;
+
+select * from App_Municipal_solicitud
+
+select * from auth_group
+
+
+SELECT auth_user.*, auth_group.*
+FROM auth_user
+JOIN auth_user_groups ON auth_user.id = auth_user_groups.user_id
+JOIN auth_group ON auth_user_groups.group_id = auth_group.id;
+
+DELETE FROM django_admin_log WHERE user_id IN (SELECT id FROM auth_user);
+DELETE FROM auth_group;
+
+DROP DATABASE MuniChile_bd

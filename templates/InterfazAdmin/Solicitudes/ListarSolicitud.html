@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Solicitudes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #343a40;
+        }
+
+        .table {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .table th {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+            padding: 12px;
+        }
+
+        .btn {
+            margin: 0 5px;
+        }
+
+        .btn-detalles {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-editar {
+            background-color: #ffc107;
+            color: white;
+        }
+
+        .btn-eliminar {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .acciones {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .section-title {
+            margin-top: 40px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #343a40;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Listado de solicitudes</h2>
+
+        <!-- Tabla para solicitudes pendientes -->
+        <h3 class="section-title">Solicitudes Pendientes</h3>
+        {% if solicitudes_pendientes %}
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>RUT</th>
+                        <th>Nombre</th>
+                        <th>Comuna</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for solicitud in solicitudes_pendientes %}
+                    <tr>
+                        <td>{{ solicitud.rut }}</td>
+                        <td>{{ solicitud.nombre }} {{ solicitud.apellidos }}</td>
+                        <td>{{ solicitud.comuna }}</td>
+                        <td><span class="badge bg-warning">Pendiente</span></td>
+                        <td class="acciones">
+                            <!-- Botón Detalles -->
+                            <button type="button" class="btn btn-sm btn-detalles" data-bs-toggle="modal" data-bs-target="#detalleModal{{ solicitud.id }}">
+                                <i class="bi bi-eye"></i> Detalles
+                            </button>
+                            <!-- Botón Eliminar -->
+                            <button type="button" class="btn btn-sm btn-eliminar" data-bs-toggle="modal" data-bs-target="#eliminarModal{{ solicitud.id }}">
+                                <i class="bi bi-trash"></i> Eliminar
+                            </button>
+                            <!-- Botón Editar -->
+                            <button type="button" class="btn btn-sm btn-editar" data-bs-toggle="modal" data-bs-target="#editarModal{{ solicitud.id }}">
+                                <i class="bi bi-pencil"></i> Editar
+                            </button>
+                        </td>
+                    </tr>
+
+                    <!-- Modales de la solicitud (Detalles, Eliminar y Editar) -->
+                    {% include 'modals.html' %}
+                    
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No hay solicitudes pendientes.</p>
+        {% endif %}
+
+        <!-- Tabla para solicitudes aceptadas -->
+        <h3 class="section-title">Solicitudes Aceptadas</h3>
+        {% if solicitudes_aceptadas %}
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>RUT</th>
+                        <th>Nombre</th>
+                        <th>Comuna</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for solicitud in solicitudes_aceptadas %}
+                    <tr>
+                        <td>{{ solicitud.rut }}</td>
+                        <td>{{ solicitud.nombre }} {{ solicitud.apellidos }}</td>
+                        <td>{{ solicitud.comuna }}</td>
+                        <td><span class="badge bg-success">Aceptada</span></td>
+                        <td class="acciones">
+                            <!-- Botón Detalles -->
+                            <button type="button" class="btn btn-sm btn-detalles" data-bs-toggle="modal" data-bs-target="#detalleModal{{ solicitud.id }}">
+                                <i class="bi bi-eye"></i> Detalles
+                            </button>
+                            <!-- Botón Eliminar -->
+                            <button type="button" class="btn btn-sm btn-eliminar" data-bs-toggle="modal" data-bs-target="#eliminarModal{{ solicitud.id }}">
+                                <i class="bi bi-trash"></i> Eliminar
+                            </button>
+                            <!-- Botón Editar -->
+                            <button type="button" class="btn btn-sm btn-editar" data-bs-toggle="modal" data-bs-target="#editarModal{{ solicitud.id }}">
+                                <i class="bi bi-pencil"></i> Editar
+                            </button>
+                        </td>
+                    </tr>
+
+                    <!-- Modales de la solicitud (Detalles, Eliminar y Editar) -->
+                    {% include 'modals.html' %}
+                    
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No hay solicitudes aceptadas.</p>
+        {% endif %}
+
+        <!-- Tabla para solicitudes rechazadas -->
+        <h3 class="section-title">Solicitudes Rechazadas</h3>
+        {% if solicitudes_rechazadas %}
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>RUT</th>
+                        <th>Nombre</th>
+                        <th>Comuna</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for solicitud in solicitudes_rechazadas %}
+                    <tr>
+                        <td>{{ solicitud.rut }}</td>
+                        <td>{{ solicitud.nombre }} {{ solicitud.apellidos }}</td>
+                        <td>{{ solicitud.comuna }}</td>
+                        <td><span class="badge bg-danger">Rechazada</span></td>
+                        <td class="acciones">
+                            <!-- Botón Detalles -->
+                            <button type="button" class="btn btn-sm btn-detalles" data-bs-toggle="modal" data-bs-target="#detalleModal{{ solicitud.id }}">
+                                <i class="bi bi-eye"></i> Detalles
+                            </button>
+                            <!-- Botón Eliminar -->
+                            <button type="button" class="btn btn-sm btn-eliminar" data-bs-toggle="modal" data-bs-target="#eliminarModal{{ solicitud.id }}">
+                                <i class="bi bi-trash"></i> Eliminar
+                            </button>
+                            <!-- Botón Editar -->
+                            <button type="button" class="btn btn-sm btn-editar" data-bs-toggle="modal" data-bs-target="#editarModal{{ solicitud.id }}">
+                                <i class="bi bi-pencil"></i> Editar
+                            </button>
+                        </td>
+                    </tr>
+
+                    <!-- Modales de la solicitud (Detalles, Eliminar y Editar) -->
+                    {% include 'modals.html' %}
+                    
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No hay solicitudes rechazadas.</p>
+        {% endif %}
+
+        <!-- Tabla para solicitudes expiradas -->
+        <h3 class="section-title">Solicitudes Expiradas</h3>
+        {% if solicitudes_expiradas %}
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>RUT</th>
+                        <th>Nombre</th>
+                        <th>Comuna</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for solicitud in solicitudes_expiradas %}
+                    <tr>
+                        <td>{{ solicitud.rut }}</td>
+                        <td>{{ solicitud.nombre }} {{ solicitud.apellidos }}</td>
+                        <td>{{ solicitud.comuna }}</td>
+                        <td><span class="badge bg-secondary">Expirada</span></td>
+                        <td class="acciones">
+                            <!-- Botón Detalles -->
+                            <button type="button" class="btn btn-sm btn-detalles" data-bs-toggle="modal" data-bs-target="#detalleModal{{ solicitud.id }}">
+                                <i class="bi bi-eye"></i> Detalles
+                            </button>
+                            <!-- Botón Eliminar -->
+                            <button type="button" class="btn btn-sm btn-eliminar" data-bs-toggle="modal" data-bs-target="#eliminarModal{{ solicitud.id }}">
+                                <i class="bi bi-trash"></i> Eliminar
+                            </button>
+                            <!-- Botón Editar -->
+                            <button type="button" class="btn btn-sm btn-editar" data-bs-toggle="modal" data-bs-target="#editarModal{{ solicitud.id }}">
+                                <i class="bi bi-pencil"></i> Editar
+                            </button>
+                        </td>
+                    </tr>
+
+                    <!-- Modales de la solicitud (Detalles, Eliminar y Editar) -->
+                    {% include 'modals.html' %}
+                    
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No hay solicitudes expiradas.</p>
+        {% endif %}
+        <br>
+        <br>
+        <a class="btn btn-primary float-end" href="/administrador">Ir Atras</a>
+    </div>
+
+    <!-- Bootstrap JS y dependencias -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+</body>
+</html>

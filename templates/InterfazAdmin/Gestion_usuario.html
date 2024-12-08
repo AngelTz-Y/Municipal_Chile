@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #3f2b96, #161b31);
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        .navbar {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            padding: 1rem 2rem;
+        }
+        .navbar-brand {
+            color: white;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .navbar .btn-outline-light {
+            font-size: 1rem;
+            padding: 6px 12px;
+            border-color: white;
+            color: white;
+        }
+        .navbar .btn-outline-light:hover {
+            background-color: white;
+            color: #343a40;
+        }
+        .card {
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            border: none;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .row {
+            justify-content: space-between;
+        }
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+        @media (max-width: 768px) {
+            .row {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'inicio' %}">
+                <img src="{% static 'images/logo.png' %}" alt="Municipalidad Chile" style="height: 30px;">
+                Municipalidad Chile
+            </a>
+            <div class="d-flex gap-2">
+                <a href="{% url 'admin_dashboard' %}" class="btn btn-outline-light"><i class="bi bi-house-fill me-2"></i> Ir Atrás</a>
+                <a href="{% url 'logout' %}" class="btn btn-outline-light"><i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2>Gestión de Usuarios</h2>
+            <p class="lead">Administra los usuarios del sistema</p>
+        </div>
+
+        <!-- Tarjetas -->
+        <div class="row gy-4">
+            <!-- Card: Ingresar Usuario -->
+            <div class="col-lg-5 col-md-6 col-sm-12 mx-auto">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Ingresar Usuario</h5>
+                        <p class="card-text">Agrega un nuevo usuario al sistema.</p>
+                        <a href="{% url 'ingresar_usuario' %}" class="btn btn-primary mt-auto"><i class="bi bi-person-plus-fill"></i> Ingresar Usuario</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card: Listar Usuarios -->
+            <div class="col-lg-5 col-md-6 col-sm-12 mx-auto">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Listar Usuarios</h5>
+                        <p class="card-text">Consulta, edita o elimina usuarios existentes.</p>
+                        <a href="{% url 'listar_usuario' %}" class="btn btn-primary mt-auto"><i class="bi bi-people-fill"></i> Listar Usuarios</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
